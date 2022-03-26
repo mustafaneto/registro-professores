@@ -10,7 +10,7 @@
       <base-card>
         <header>
           <h2>Gostou? Fale comigo agora mesmo!</h2>
-          <base-button link :to="contactLink">Contato</base-button>
+          <base-button v-if="contato" link :to="contactLink" @click="contatoButtonPress()">Contato</base-button>
         </header>
         <router-view></router-view>
       </base-card>
@@ -35,7 +35,13 @@ export default {
   data() {
     return {
       selectedCoach: null,
+      contato: true,
     };
+  },
+  methods: {
+    contatoButtonPress() {
+      this.contato = false
+    }
   },
   computed: {
     fullName() {

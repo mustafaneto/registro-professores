@@ -4,11 +4,33 @@
       <h1><router-link to="/">Encontre um Professor</router-link></h1>
       <ul>
         <li><router-link to="/coaches">Todos os Professores</router-link></li>
-        <li><router-link to="/requests">Suas Mensagens</router-link></li>
+        <li v-if="isLoggedIn">
+          <router-link to="/requests">Suas Mensagens</router-link>
+        </li>
+        <li v-else><router-link to="/auth">Entrar</router-link></li>
+        <li v-if="isLoggedIn">
+          <base-button @click="logout">Sair</base-button>
+        </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.replace('/coaches');
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
